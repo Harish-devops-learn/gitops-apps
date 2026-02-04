@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>E-commerce Demo</title></head>
+<body>
+  <h1>GitOps Microservices Demo</h1>
+  <div id="products"></div>
+  <script>
+    fetch('http://backend:3000/api/products')
+      .then(r=>r.json()).then(products => {
+        document.getElementById('products').innerHTML = 
+          products.map(p => `<p>${p.name}: $${p.price}</p>`).join('');
+      });
+  </script>
+</body>
+</html>
