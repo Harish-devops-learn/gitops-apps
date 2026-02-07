@@ -1,0 +1,39 @@
+replicaCount: 2
+
+images:
+  backend:
+    repository: 612081458898.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-backend
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  frontend:
+    repository: 612081458898.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-frontend  
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+services:
+  backend:
+    port: 3000
+    targetPort: 3000
+    type: ClusterIP
+  frontend:
+    port: 80
+    targetPort: 80
+    type: LoadBalancer
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  paths:
+    frontend: /
+    backend: /api
