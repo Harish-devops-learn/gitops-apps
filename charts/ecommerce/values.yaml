@@ -34,5 +34,10 @@ ingress:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
   paths:
-    frontend: /
-    backend: /api
+    - path: /          
+      backend: backend
+    - path: /api        
+      backend: frontend
+
+namespace: ecommerce
+createNamespace: true
